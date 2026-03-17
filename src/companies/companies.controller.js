@@ -1,4 +1,4 @@
-import Company from "../models/company.model.js";
+import Company from "./companies.model.js";
 
 export const createCompany = async (req, res) => {
     try {
@@ -17,7 +17,7 @@ export const createCompany = async (req, res) => {
         return res.status(500).json({
             success: false,
             message: "Error creating company",
-            error
+            error: error.message
         });
     }
 };
@@ -36,7 +36,7 @@ export const getCompanies = async (req, res) => {
         return res.status(500).json({
             success: false,
             message: "Error getting companies",
-            error
+            error: error.message
         });
     }
 };
@@ -63,7 +63,7 @@ export const getCompanyById = async (req, res) => {
         return res.status(500).json({
             success: false,
             message: "Error getting company",
-            error
+            error: error.message
         });
     }
 };
@@ -72,10 +72,15 @@ export const updateCompany = async (req, res) => {
     try {
         const { id } = req.params;
 
+        const updateData = { ...req.body };
+
         const updatedCompany = await Company.findByIdAndUpdate(
             id,
-            req.body,
-            { new: true }
+            updateData,
+            {   
+                new: true,
+                runValidators: true
+            }
         );
 
         if (!updatedCompany) {
@@ -95,7 +100,7 @@ export const updateCompany = async (req, res) => {
         return res.status(500).json({
             success: false,
             message: "Error updating company",
-            error
+            error: error.message
         });
     }
 };
@@ -116,7 +121,7 @@ export const getCompaniesByCategory = async (req, res) => {
         return res.status(500).json({
             success: false,
             message: "Error filtering companies by category",
-            error
+            error: error.message
         });
     }
 };
@@ -137,7 +142,7 @@ export const getCompaniesByImpact = async (req, res) => {
         return res.status(500).json({
             success: false,
             message: "Error filtering companies by impact",
-            error
+            error: error.message
         });
     }
 };
@@ -160,7 +165,7 @@ export const getCompaniesByYears = async (req, res) => {
         return res.status(500).json({
             success: false,
             message: "Error filtering companies by years",
-            error
+            error: error.message
         });
     }
 };
@@ -178,7 +183,7 @@ export const getCompaniesAZ = async (req, res) => {
         return res.status(500).json({
             success: false,
             message: "Error sorting companies",
-            error
+            error: error.message
         });
     }
 };
@@ -196,7 +201,7 @@ export const getCompaniesZA = async (req, res) => {
         return res.status(500).json({
             success: false,
             message: "Error sorting companies",
-            error
+            error: error.message
         });
     }
 };

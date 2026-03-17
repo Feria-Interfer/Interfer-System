@@ -10,6 +10,7 @@ import { helmetConfiguration } from './helmet-configuration.js';
 import { requestLimit } from '../middlewares/request-limit.js';
 import { errorHandler } from '../middlewares/handle-errors.js';
 import companiesRoutes from '../src/companies/companies.routes.js'
+import reportsRoutes from '../src/reports/reports.routes.js'
 
 const BASE_PATH = '/Interfer/v1';
 
@@ -25,6 +26,7 @@ const middlewares = (app) => {
 const routes = (app) => {
 
     app.use(`${BASE_PATH}/companies`, companiesRoutes);
+    app.use(`${BASE_PATH}/reports`, reportsRoutes);
 
     app.get(`${BASE_PATH}/Health`, (request, response) => {
         response.status(200).json({

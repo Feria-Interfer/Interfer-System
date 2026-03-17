@@ -16,8 +16,8 @@ const companySchema = mongoose.Schema(
             type: String,
             required: true,
             enum: {
-                values: ["Bajo", "Medio", "Alto"],
-                message: "Impact level must be 'Bajo', 'Medio', or 'Alto'"
+                values: ["BAJO", "MEDIO", "ALTO"],
+                message: "Impact level must be 'BAJO', 'MEDIO', or 'ALTO'"
             }
         },
         yearsTrajectory: {
@@ -31,10 +31,6 @@ const companySchema = mongoose.Schema(
         },
         contactPhone: {
             type: String
-        },
-        isActive: {
-            type: Boolean,
-            default: true
         }
     },
     {
@@ -42,8 +38,6 @@ const companySchema = mongoose.Schema(
     }
 );
 
-companySchema.index({ isActive: 1 });
 companySchema.index({ impactLevel: 1 });
-companySchema.index({ isActive: 1, impactLevel: 1 });
 
 export default mongoose.model('Company', companySchema);
