@@ -1,0 +1,710 @@
+{
+  "info": {
+    "_postman_id": "05dae2ab-5b9b-404d-8bdc-957c0b92cecf",
+    "name": "Interfer",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "48083670",
+    "_collection_link": "https://go.postman.co/collection/48083670-05dae2ab-5b9b-404d-8bdc-957c0b92cecf?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "Authentication Service",
+      "item": [
+        {
+          "name": "Health Check",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:5156/api/v1/health",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5156",
+              "path": [
+                "api",
+                "v1",
+                "health"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Register",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "if (pm.response.json().token) {",
+                  "    pm.environment.set('authToken', pm.response.json().token);",
+                  "    pm.environment.set('userId', pm.response.json().user.id);",
+                  "    pm.environment.set('userEmail', pm.response.json().user.email);",
+                  "}"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "name",
+                  "value": "Eduardo André",
+                  "type": "text"
+                },
+                {
+                  "key": "surname",
+                  "value": "Rodríguez Ochoa",
+                  "type": "text"
+                },
+                {
+                  "key": "username",
+                  "value": "erodriguez",
+                  "type": "text"
+                },
+                {
+                  "key": "email",
+                  "value": "erodriguez-2024250@kinal.edu.gt",
+                  "type": "text"
+                },
+                {
+                  "key": "password",
+                  "value": "ohsi1234",
+                  "type": "text"
+                },
+                {
+                  "key": "phone",
+                  "value": "12345678",
+                  "type": "text"
+                },
+                {
+                  "key": "profilePicture",
+                  "type": "file",
+                  "src": "/C:/Users/Cambiar Nombre/Downloads/neyma.webp"
+                }
+              ]
+            },
+            "url": {
+              "raw": "http://localhost:5156/api/v1/auth/register/",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5156",
+              "path": [
+                "api",
+                "v1",
+                "auth",
+                "register",
+                ""
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Login",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "if (pm.response.json().token) {",
+                  "    pm.environment.set('authToken', pm.response.json().token);",
+                  "    pm.environment.set('userId', pm.response.json().userDetails.id);",
+                  "}"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"emailOrUsername\": \"erodriguez\",\n    \"password\": \"ohsi1234\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:5156/api/v1/auth/login",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5156",
+              "path": [
+                "api",
+                "v1",
+                "auth",
+                "login"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Verify Email",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"token\": \"Va_wSs993lKEAwBLbPA_P9ksVGy4945Cf27tSORDb5M\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:5156/api/v1/auth/verify-email",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5156",
+              "path": [
+                "api",
+                "v1",
+                "auth",
+                "verify-email"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Resend Verification",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"email\": \"erodriguez-2024250@kinal.edu.gt\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:5156/api/v1/auth/resend-verification",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5156",
+              "path": [
+                "api",
+                "v1",
+                "auth",
+                "resend-verification"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Forgot Password",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"email\": \"erodriguez-2024250@kinal.edu.gt\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:5156/api/v1/auth/forgot-password",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5156",
+              "path": [
+                "api",
+                "v1",
+                "auth",
+                "forgot-password"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Reset Password",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"token\": \"ag-FJvWyuyMhBBiKAvqgJ46Qvxk92wDp6hBO8NQhMhs\",\n    \"newPassword\": \"hola1234\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:5156/api/v1/auth/reset-password",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5156",
+              "path": [
+                "api",
+                "v1",
+                "auth",
+                "reset-password"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Profile",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ1c3JfY1BGeUR5OXB6aTFnIiwianRpIjoiYjQwNDg1MjQtMTA0ZC00NmExLWEyZDgtNTIxMTVlMTA2MzI5IiwiaWF0IjoxNzczNzEzNDk1LCJyb2xlIjoiQURNSU5fUk9MRSIsImV4cCI6MTc3MzcxNTI5NSwiaXNzIjoiQXV0aFNlcnZpY2VJbnRlcmZlciIsImF1ZCI6ImFwaUludGVyZmVyIn0.VwJ3DINb92hRr_KDSwKi-ZQRfJUFFxsmmIhNmvg7WFI",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:5156/api/v1/auth/profile",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5156",
+              "path": [
+                "api",
+                "v1",
+                "auth",
+                "profile"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Node.js",
+      "item": [
+        {
+          "name": "Create Company",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ1c3JfY1BGeUR5OXB6aTFnIiwianRpIjoiMTk5NGQ1MWYtYTFiYi00YTZmLWEwZGItODRkM2RiYThhZTgzIiwiaWF0IjoxNzczNzIxNDAxLCJyb2xlIjoiQURNSU5fUk9MRSIsImV4cCI6MTc3MzcyMzIwMSwiaXNzIjoiQXV0aFNlcnZpY2VJbnRlcmZlciIsImF1ZCI6ImFwaUludGVyZmVyIn0.y7RjLNk30IRxdWwDVG-berkvenEfMM7nZfK_Uq41TnU",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"name\": \"Patsy\",\r\n  \"category\": \"Pasteleria\",\r\n  \"impactLevel\": \"MEDIO\",\r\n  \"yearsTrajectory\": 10,\r\n  \"contactEmail\": \"contact@techsolutions.com\",\r\n  \"contactPhone\": \"5555-1234\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:3006/Interfer/v1/companies/create",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3006",
+              "path": [
+                "Interfer",
+                "v1",
+                "companies",
+                "create"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Companies",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ1c3JfY1BGeUR5OXB6aTFnIiwianRpIjoiMTk5NGQ1MWYtYTFiYi00YTZmLWEwZGItODRkM2RiYThhZTgzIiwiaWF0IjoxNzczNzIxNDAxLCJyb2xlIjoiQURNSU5fUk9MRSIsImV4cCI6MTc3MzcyMzIwMSwiaXNzIjoiQXV0aFNlcnZpY2VJbnRlcmZlciIsImF1ZCI6ImFwaUludGVyZmVyIn0.y7RjLNk30IRxdWwDVG-berkvenEfMM7nZfK_Uq41TnU",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3006/Interfer/v1/companies",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3006",
+              "path": [
+                "Interfer",
+                "v1",
+                "companies"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Company By Id",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ1c3JfY1BGeUR5OXB6aTFnIiwianRpIjoiMTk5NGQ1MWYtYTFiYi00YTZmLWEwZGItODRkM2RiYThhZTgzIiwiaWF0IjoxNzczNzIxNDAxLCJyb2xlIjoiQURNSU5fUk9MRSIsImV4cCI6MTc3MzcyMzIwMSwiaXNzIjoiQXV0aFNlcnZpY2VJbnRlcmZlciIsImF1ZCI6ImFwaUludGVyZmVyIn0.y7RjLNk30IRxdWwDVG-berkvenEfMM7nZfK_Uq41TnU",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3006/Interfer/v1/companies/69b8d79293cd89ed84a40499",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3006",
+              "path": [
+                "Interfer",
+                "v1",
+                "companies",
+                "69b8d79293cd89ed84a40499"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update Company",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ1c3JfY1BGeUR5OXB6aTFnIiwianRpIjoiMTk5NGQ1MWYtYTFiYi00YTZmLWEwZGItODRkM2RiYThhZTgzIiwiaWF0IjoxNzczNzIxNDAxLCJyb2xlIjoiQURNSU5fUk9MRSIsImV4cCI6MTc3MzcyMzIwMSwiaXNzIjoiQXV0aFNlcnZpY2VJbnRlcmZlciIsImF1ZCI6ImFwaUludGVyZmVyIn0.y7RjLNk30IRxdWwDVG-berkvenEfMM7nZfK_Uq41TnU",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"name\": \"Patsy\",\r\n  \"category\": \"Pasteleria\",\r\n  \"impactLevel\": \"ALTO\",\r\n  \"yearsTrajectory\": 15,\r\n  \"contactEmail\": \"contact@techsolution.com\",\r\n  \"contactPhone\": \"5554-1234\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:3006/Interfer/v1/companies/update/69b8d79293cd89ed84a40499",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3006",
+              "path": [
+                "Interfer",
+                "v1",
+                "companies",
+                "update",
+                "69b8d79293cd89ed84a40499"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get By Category",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ1c3JfY1BGeUR5OXB6aTFnIiwianRpIjoiMTk5NGQ1MWYtYTFiYi00YTZmLWEwZGItODRkM2RiYThhZTgzIiwiaWF0IjoxNzczNzIxNDAxLCJyb2xlIjoiQURNSU5fUk9MRSIsImV4cCI6MTc3MzcyMzIwMSwiaXNzIjoiQXV0aFNlcnZpY2VJbnRlcmZlciIsImF1ZCI6ImFwaUludGVyZmVyIn0.y7RjLNk30IRxdWwDVG-berkvenEfMM7nZfK_Uq41TnU",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3006/Interfer/v1/companies/category/Tecnologia",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3006",
+              "path": [
+                "Interfer",
+                "v1",
+                "companies",
+                "category",
+                "Tecnologia"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get By Impact",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ1c3JfY1BGeUR5OXB6aTFnIiwianRpIjoiMTk5NGQ1MWYtYTFiYi00YTZmLWEwZGItODRkM2RiYThhZTgzIiwiaWF0IjoxNzczNzIxNDAxLCJyb2xlIjoiQURNSU5fUk9MRSIsImV4cCI6MTc3MzcyMzIwMSwiaXNzIjoiQXV0aFNlcnZpY2VJbnRlcmZlciIsImF1ZCI6ImFwaUludGVyZmVyIn0.y7RjLNk30IRxdWwDVG-berkvenEfMM7nZfK_Uq41TnU",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3006/Interfer/v1/companies/impact/ALTO",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3006",
+              "path": [
+                "Interfer",
+                "v1",
+                "companies",
+                "impact",
+                "ALTO"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get By Trayectory",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ1c3JfY1BGeUR5OXB6aTFnIiwianRpIjoiMTk5NGQ1MWYtYTFiYi00YTZmLWEwZGItODRkM2RiYThhZTgzIiwiaWF0IjoxNzczNzIxNDAxLCJyb2xlIjoiQURNSU5fUk9MRSIsImV4cCI6MTc3MzcyMzIwMSwiaXNzIjoiQXV0aFNlcnZpY2VJbnRlcmZlciIsImF1ZCI6ImFwaUludGVyZmVyIn0.y7RjLNk30IRxdWwDVG-berkvenEfMM7nZfK_Uq41TnU",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3006/Interfer/v1/companies/trajectory/6",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3006",
+              "path": [
+                "Interfer",
+                "v1",
+                "companies",
+                "trajectory",
+                "6"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get A-Z",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ1c3JfY1BGeUR5OXB6aTFnIiwianRpIjoiMTk5NGQ1MWYtYTFiYi00YTZmLWEwZGItODRkM2RiYThhZTgzIiwiaWF0IjoxNzczNzIxNDAxLCJyb2xlIjoiQURNSU5fUk9MRSIsImV4cCI6MTc3MzcyMzIwMSwiaXNzIjoiQXV0aFNlcnZpY2VJbnRlcmZlciIsImF1ZCI6ImFwaUludGVyZmVyIn0.y7RjLNk30IRxdWwDVG-berkvenEfMM7nZfK_Uq41TnU",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3006/Interfer/v1/companies/sort/az",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3006",
+              "path": [
+                "Interfer",
+                "v1",
+                "companies",
+                "sort",
+                "az"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Z-A",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ1c3JfY1BGeUR5OXB6aTFnIiwianRpIjoiMTk5NGQ1MWYtYTFiYi00YTZmLWEwZGItODRkM2RiYThhZTgzIiwiaWF0IjoxNzczNzIxNDAxLCJyb2xlIjoiQURNSU5fUk9MRSIsImV4cCI6MTc3MzcyMzIwMSwiaXNzIjoiQXV0aFNlcnZpY2VJbnRlcmZlciIsImF1ZCI6ImFwaUludGVyZmVyIn0.y7RjLNk30IRxdWwDVG-berkvenEfMM7nZfK_Uq41TnU",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3006/Interfer/v1/companies/sort/za",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3006",
+              "path": [
+                "Interfer",
+                "v1",
+                "companies",
+                "sort",
+                "za"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Generate report",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ1c3JfY1BGeUR5OXB6aTFnIiwianRpIjoiZjA5N2U5MTUtMDk1Mi00ODIzLWEyNDktMTJjMGIxYjljYmZkIiwiaWF0IjoxNzczNzIzNTkyLCJyb2xlIjoiQURNSU5fUk9MRSIsImV4cCI6MTc3MzcyNTM5MiwiaXNzIjoiQXV0aFNlcnZpY2VJbnRlcmZlciIsImF1ZCI6ImFwaUludGVyZmVyIn0.M0HXPBAg6zk9NKQ-tRYWCf1BV7BJxVGUKzdhwtD2NJQ",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3006/Interfer/v1/reports/report",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3006",
+              "path": [
+                "Interfer",
+                "v1",
+                "reports",
+                "report"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "INFO Generate Report",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ1c3JfY1BGeUR5OXB6aTFnIiwianRpIjoiODFhYzQyYjQtMDExNS00MDk0LWE4ZDctNzdlNTM4MDRhMTRhIiwiaWF0IjoxNzczNzI2Njk3LCJyb2xlIjoiQURNSU5fUk9MRSIsImV4cCI6MTc3MzcyODQ5NywiaXNzIjoiQXV0aFNlcnZpY2VJbnRlcmZlciIsImF1ZCI6ImFwaUludGVyZmVyIn0.Os40U-ripzOMqz_VRO-pR8zPm98Ekimenpg0q-WkME8",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3006/Interfer/v1/reports/info",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3006",
+              "path": [
+                "Interfer",
+                "v1",
+                "reports",
+                "info"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}
